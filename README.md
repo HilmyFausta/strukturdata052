@@ -1,0 +1,2 @@
+# strukturdata052
+hama
