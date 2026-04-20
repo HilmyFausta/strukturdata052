@@ -1,50 +1,54 @@
 #include <iostream>
 using namespace std;
 
-#define MAX 5
+struct Node {
+    int data;
+    Node* next;
+};
 
 class Queue {
 private:
-    int arr[MAX];
-    int front, rear;
+    Node *front, *rear;
 
 public:
     Queue() {
-        front = -1;
-        rear = -1;
+        front = rear = NULL;
     }
 
     bool isEmpty() {
-        return (front == -1);
-    }
-
-    bool isFull() {
-        return (rear == MAX - 1);
+        return (front == NULL);
     }
 
     void enqueue(int x) {
-        if (isFull()) {
-            cout << "Queue Overflow\n";
-            return;
+        Node* newNode = new Node();
+        newNode->data = x;
+        newNode->next = NULL;
+
+        if (rear == NULL) {
+            front = rear = newNode;
+        } else {
+            rear->next = newNode;
+            rear = newNode;
         }
-        if (isEmpty()) {
-            front = 0;
-        }
-        arr[++rear] = x;
         cout << "Elemen " << x << " masuk ke queue\n";
     }
 
     void dequeue() {
         if (isEmpty()) {
-            cout << "Queue Underflow\n";
+            cout << "Queue kosong\n";
             return;
         }
-        cout << "Elemen " << arr[front] << " keluar dari queue\n";
-        if (front == rear) {
-            front = rear = -1;
-        } else {
-            front++;
+
+        Node* temp = front;
+        cout << "Elemen " << temp->data << " keluar dari queue\n";
+
+        front = front->next;
+
+        if (front == NULL) {
+            rear = NULL;
         }
+
+        delete temp;
     }
 
     void display() {
@@ -52,9 +56,12 @@ public:
             cout << "Queue kosong\n";
             return;
         }
+
+        Node* temp = front;
         cout << "Isi Queue: ";
-        for (int i = front; i <= rear; i++) {
-            cout << arr[i] << " ";
+        while (temp != NULL) {
+            cout << temp->data << " ";
+            temp = temp->next;
         }
         cout << endl;
     }
@@ -63,9 +70,9 @@ public:
 int main() {
     Queue q;
 
-    q.enqueue(10);
-    q.enqueue(20);
-    q.enqueue(30);
+    q.enqueue(5);
+    q.enqueue(15);
+    q.enqueue(25);
 
     q.display();
 
