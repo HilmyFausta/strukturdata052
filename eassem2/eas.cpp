@@ -1,13 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <queue>
-#include <stack>
-#include <list>
-#include <string>
-#include <algorithm>
-#include <cstdlib>
-
+#include <bits/stdc++.h>
 using namespace std;
 using node_jalur = pair<int, string>;
 using priority_queue_min = priority_queue<node_jalur, vector<node_jalur>, greater<node_jalur>>;
